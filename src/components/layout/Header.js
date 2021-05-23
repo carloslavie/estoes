@@ -1,5 +1,4 @@
 import React from 'react';
-import ListadoProyectos from '../ListadoProyectos';
 import logo from '../../assets/images/logo.png';
 import { Box, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';

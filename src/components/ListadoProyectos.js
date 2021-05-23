@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Proyectos from './Proyectos';
-import { Box, Button, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, } from '@chakra-ui/react';
+import { Box, Button, Table, Thead, Tbody, Tr } from '@chakra-ui/react';
 import { obtenerProyectosApi } from '../reducers/proyectosReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -14,14 +14,6 @@ const Tah = styled.th`
     @media (max-Width: 768px){
         color:red;
         display: none;        
-    }
-`;
-
-const Linea = styled.div`
-    @media (max-Width: 768px){
-        border-bottom:1px solid #d9d9d9;
-        margin:.5rem 0%;
-        width: 100%;
     }
 `;
 
@@ -48,7 +40,7 @@ const ListadoProyectos = () => {
     useEffect(() => {
 
         dispatch(obtenerProyectosApi())
-
+        // eslint-disable-next-line
     }, [])
     
         
@@ -84,13 +76,10 @@ const ListadoProyectos = () => {
                         <Tbody>
                         { proyectos.length === 0 ? 'No existen proyectos que mostrar' : (
                             proyectos.map(proyecto => (
-                                <>
                                 <Proyectos 
                                     key={proyecto.id}
                                     proyecto={proyecto}
                                 />
-                                {/* <Linea></Linea> */}
-                                </>
                             ))
                         )}  
                         </Tbody>

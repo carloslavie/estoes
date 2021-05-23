@@ -20,7 +20,7 @@ const Formulario = ({proyecto}) => {
         id:''        
         });  
             
-    const { name, productManager, description, assigned, status, id } = newProyecto;
+    const { name, productManager, description, assigned, status } = newProyecto;
 
     const [ error, actualizarError ] = useState(false)
   
@@ -29,7 +29,7 @@ const Formulario = ({proyecto}) => {
     if(proyecto){
         setNewProyecto(proyecto)        
     }
-         
+         // eslint-disable-next-line
   }, [])  
 
     const handleChange = e => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons'
 import { Icon } from "@chakra-ui/react";
 import { AiOutlineMore } from "react-icons/ai";
-import { Image, Box, Button, Tr, Td, Flex, IconButton, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import { Image, Box, Button, Flex, IconButton, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import { obtenerProyectoActual, eliminarProyectoApi } from '../reducers/proyectosReducer';
