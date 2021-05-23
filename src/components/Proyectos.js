@@ -2,7 +2,7 @@ import React from 'react';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons'
 import { Icon } from "@chakra-ui/react";
 import { AiOutlineMore } from "react-icons/ai";
-import { Image, Tr, Td, Flex, IconButton, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import { Image, Box, Button, Tr, Td, Flex, IconButton, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import { obtenerProyectoActual, eliminarProyectoApi } from '../reducers/proyectosReducer';
@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 
 const Proyectos = ({proyecto}) => {
 
-    const { name, avatar, productManager, assigned, status, asigImage, id } = proyecto;
+    const { name, avatar, productManager, assigned, status, asigImage, id, create } = proyecto;
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -39,16 +39,20 @@ const Proyectos = ({proyecto}) => {
 
      const handleEdit = proyecto => {
      dispatch(obtenerProyectoActual(proyecto))
-     //history.push(`/edit/${id}`);
+     console.log(proyecto)
+     history.push(`/proyectos/editar/${id}`);
    }
 
     return ( 
         <>        
         <Tr>
-            <Td>{name}</Td>
+            <Td>
+                <Box>{name}</Box>
+                <Box fontSize="10px">Creation date: {create}</Box>
+            </Td>
             <Td><Flex alignItems="center"><Image src={avatar} width="30px" borderRadius="50%" mr="1rem"/>{productManager}</Flex></Td>
             <Td><Flex alignItems="center"><Image src={asigImage} width="30px" borderRadius="50%" mr="1rem"/>{assigned}</Flex></Td>
-            <Td>{status}</Td>
+            <Td><Button>{status}</Button></Td>
             <Td>
                 <Menu>
                     <MenuButton
@@ -56,6 +60,7 @@ const Proyectos = ({proyecto}) => {
                         aria-label="Options"
                         icon={<Icon as={AiOutlineMore} />}
                         variant="outline"
+                        border="none"
                     />
                     <MenuList>
                         <MenuItem onClick={()=>handleEdit(proyecto)} icon={<EditIcon />}>

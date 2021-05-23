@@ -3,11 +3,13 @@ import Proyectos from './Proyectos';
 import { Box, Button, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, } from '@chakra-ui/react';
 import { obtenerProyectosApi } from '../reducers/proyectosReducer';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
     
 
 const ListadoProyectos = () => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
 
@@ -26,7 +28,7 @@ const ListadoProyectos = () => {
                         <Box fontSize="20px" fontWeight="bold">My projects</Box>
                     </Box>
                     <Box>
-                        <Button colorScheme="red" color="#fff">Add Project</Button>
+                        <Button colorScheme="red" color="#fff" onClick={()=>history.push('/proyectos/nuevo')}>Add Project</Button>
                     </Box>
                 </Box>
             </Box>
