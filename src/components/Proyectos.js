@@ -7,7 +7,45 @@ import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import { obtenerProyectoActual, eliminarProyectoApi } from '../reducers/proyectosReducer';
 import { useHistory } from 'react-router-dom';
+import styled from '@emotion/styled'
 
+
+const Tad = styled.td`
+
+@media (max-width: 768px){
+    display: flex;
+}
+`;
+
+const CampoUno = styled.div`
+    padding-left: 1rem;
+    @media (max-width: 768px){
+        display: flex;
+        flex-direction:column;
+        padding-left: 0;
+        margin-left: 0;
+    }
+`;
+
+const ProjectM = styled.td`
+    display:flex;
+    align-items: center;
+    @media (max-width: 768px){
+        display:none
+    }
+`;
+
+const TadStatus = styled.td`
+    @media (max-width: 768px){
+        display:none
+    }
+`;
+
+const TadMenu = styled.td`    
+    @media (max-width: 768px){
+        float: inline-end;
+    }
+`;
 
 const Proyectos = ({proyecto}) => {
 
@@ -46,14 +84,16 @@ const Proyectos = ({proyecto}) => {
     return ( 
         <>        
         <Tr>
-            <Td>
-                <Box>{name}</Box>
-                <Box fontSize="10px">Creation date: {create}</Box>
-            </Td>
-            <Td><Flex alignItems="center"><Image src={avatar} width="30px" borderRadius="50%" mr="1rem"/>{productManager}</Flex></Td>
-            <Td><Flex alignItems="center"><Image src={asigImage} width="30px" borderRadius="50%" mr="1rem"/>{assigned}</Flex></Td>
-            <Td><Button>{status}</Button></Td>
-            <Td>
+            <Tad>
+                <CampoUno>
+                    <Box>{name}</Box>
+                    <Box fontSize="10px">Creation date: {create}</Box>
+                </CampoUno>
+            </Tad>
+            <ProjectM><Image src={avatar} width="30px" borderRadius="50%" mr="1rem"/>{productManager}</ProjectM>
+            <Tad><Flex alignItems="center"><Image src={asigImage} width="30px" borderRadius="50%" mr="1rem"/>{assigned}</Flex></Tad>
+            <TadStatus><Button>{status}</Button></TadStatus>
+            <TadMenu>
                 <Menu>
                     <MenuButton
                         as={IconButton}
@@ -61,9 +101,10 @@ const Proyectos = ({proyecto}) => {
                         icon={<Icon as={AiOutlineMore} />}
                         variant="outline"
                         border="none"
+                        fontSize={{ base: "40px", md: "30px", lg: "26px" }}
                     />
                     <MenuList>
-                        <MenuItem onClick={()=>handleEdit(proyecto)} icon={<EditIcon />}>
+                        <MenuItem onClick={()=> handleEdit(proyecto)} icon={<EditIcon />}>
                         Edit
                         </MenuItem>
                         <MenuItem onClick={() => confirmDelete(id)} icon={<DeleteIcon />}>
@@ -71,7 +112,7 @@ const Proyectos = ({proyecto}) => {
                         </MenuItem>
                     </MenuList>
                 </Menu>
-            </Td>            
+            </TadMenu>            
         </Tr> 
         </>
      );
