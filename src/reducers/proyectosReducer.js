@@ -63,17 +63,10 @@ export const obtenerProyectosApi =  () => async dispatch => {
 };
 
  export const agregarProyectosApi = proyecto => async dispatch => {
+     console.log(proyecto)
      dispatch(proyectosFetching())
      try {               
-         const respuesta = await fetch('API', {
-             method: 'POST', 
-             body: JSON.stringify(proyecto), 
-             headers:{
-               'Content-Type': 'application/json'
-             }})
-         const resultado = await respuesta.json();
-                
-         dispatch(agregarProyectos(proyecto))
+         await dispatch(agregarProyectos(proyecto))
 
       } catch (error) {
          dispatch(proyectoError(error.message));
@@ -86,14 +79,7 @@ export const obtenerProyectosApi =  () => async dispatch => {
      dispatch(proyectosFetching())
     try {
        
-        const resultado = await fetch(`https://reqres.in/api/users/${proyecto.id}`, {
-            method: 'PUT',
-            body: JSON.stringify(proyecto), 
-            headers:{
-              'Content-Type': 'application/json'
-            }})
-
-         dispatch(actualizarProyecto(proyecto))
+        await dispatch(actualizarProyecto(proyecto))
 
     } catch (error) {
      dispatch(proyectoError(error.message));
@@ -108,11 +94,7 @@ export const obtenerProyectosApi =  () => async dispatch => {
  export const eliminarProyectoApi = id => async dispatch =>{
     
      try {
-         const resultado = await fetch(`https://reqres.in/api/users/${id}`, {
-             method: 'DELETE',
-             })
-                                           
-         dispatch(eliminarProyecto(id))
+        await dispatch(eliminarProyecto(id))
 
      } catch (error) {
      dispatch(proyectoError(error.message));

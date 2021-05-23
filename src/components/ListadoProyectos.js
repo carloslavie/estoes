@@ -10,6 +10,7 @@ const ListadoProyectos = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const { proyectos } = useSelector(state => state.proyectos);
 
     useEffect(() => {
 
@@ -18,7 +19,6 @@ const ListadoProyectos = () => {
     }, [])
     
         
-        const { proyectos } = useSelector(state => state.proyectos);
 
     return ( 
         <>

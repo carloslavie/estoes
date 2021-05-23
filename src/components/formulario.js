@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import {
-    FormControl, FormLabel, Input, Container, Button, Select } from "@chakra-ui/react";
-import { useHistory } from 'react-router-dom';
+import { Flex, Box, FormControl, FormLabel, Input, Container, Button, Select } from "@chakra-ui/react";
+import { useHistory, Link } from 'react-router-dom';
 import { actualizarProyectoApi, agregarProyectosApi } from '../reducers/proyectosReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 
 const Formulario = ({proyecto}) => {
-    console.log(proyecto)
-    const dispatch = useDispatch();
-        
-    const proyectos = useSelector(state=> state.proyectos)
     
-
+    const dispatch = useDispatch();        
+    const proyectos = useSelector(state=> state.proyectos)    
     const history = useHistory();
 
     const [newProyecto, setNewProyecto] = useState({
@@ -25,6 +21,8 @@ const Formulario = ({proyecto}) => {
         });  
             
     const { name, productManager, description, assigned, status, id } = newProyecto;
+
+    const [ error, actualizarError ] = useState(false)
   
   useEffect(() => {
         
@@ -46,20 +44,57 @@ const Formulario = ({proyecto}) => {
     const handleCreate = e => {
         e.preventDefault()
 
+        if(name.trim() === "" || productManager.trim() === "" || assigned.trim() === "" || status.trim() === "" ){
+            actualizarError(true);
+            setTimeout(() => {
+                actualizarError(false)
+            }, 1000);
+            return;
+        }
+        
+        actualizarError(false)
+
         dispatch(agregarProyectosApi(newProyecto));
+        console.log(newProyecto)
         history.push('/');
     }
 
     const handleEdit = e => {
         e.preventDefault()
-        dispatch(actualizarProyectoApi(newProyecto));
+
+        if(name.trim() === "" || productManager.trim() === "" || assigned.trim() === "" || status.trim() === "" ){
+            actualizarError(true);
+            setTimeout(() => {
+                actualizarError(false)
+            }, 1000);
+            return;
+        }
         
+        actualizarError(false)
+
+        dispatch(actualizarProyectoApi(newProyecto));        
         history.push('/');
     } 
     
     return ( 
         <>
-        { proyecto ? <h1>Edit Project</h1> : <h1>Add Project</h1>}
+        
+        { proyecto ? 
+        <Flex alignItems="center" ml="3rem"> 
+            <Link to="/">
+                <Box>&#8701; Back</Box>
+            </Link>
+            <Box fontSize="2rem" fontWeight="semibold" ml="1rem" > Edit Project
+            </Box>
+        </Flex>
+         : <Flex alignItems="center" ml="3rem"> 
+         <Link to="/">
+             <Box>&#8701; Back</Box>
+         </Link>
+         <Box fontSize="2rem" fontWeight="semibold" ml="1rem" > Add Project
+         </Box>
+     </Flex>
+        }
         <Container maxW="container.sm" mt="3rem" border="1px" borderRadius="2xl" p="1rem" borderColor="#e2e8f0" width="95%">
             <FormControl id="name" mb="1rem">
                 <FormLabel>Project name</FormLabel>
@@ -68,7 +103,7 @@ const Formulario = ({proyecto}) => {
                         name= "name"
                         onChange={handleChange}
                         value={name}
-                        required
+                        isrequired
                     />               
             </FormControl>
             <FormControl id="description" mb="1rem">
@@ -88,7 +123,7 @@ const Formulario = ({proyecto}) => {
                         onChange={handleChange}  
                 >
                         {proyectos.proyectos.map(proyect => (
-                            <option key={proyect.id} name="productManager" value="proyect.productManager">{proyect.productManager}</option>
+                            <option key={proyect.id} name="productManager" value={proyect.productManager}>{proyect.productManager}</option>
                         ))}                 
                 </Select>    
             </FormControl>
@@ -99,7 +134,7 @@ const Formulario = ({proyecto}) => {
                         name="assigned" 
                 >
                         {proyectos.proyectos.map(proyect => (
-                            <option key={proyect.id} name="assigned" value="proyect.productManager">{proyect.assigned}</option>
+                            <option key={proyect.id} name="assigned" value={proyect.assigned}>{proyect.assigned}</option>
                         ))}                 
                 </Select>    
             </FormControl>
@@ -109,8 +144,8 @@ const Formulario = ({proyecto}) => {
                         onChange={handleChange} 
                         name="status" 
                 >
-                        <option value="status">Enable</option>
-                        <option value="status">Disable</option>               
+                        <option value="enable">Enable</option>
+                        <option value="disable">Disable</option>               
                 </Select>    
             </FormControl>
             
@@ -134,6 +169,7 @@ const Formulario = ({proyecto}) => {
                 </Button>
                 }
         </Container>
+        {error && <Box backgroundColor="red" color="#FFF" width="30%" m="1rem auto" fontWeight="semibold" borderRadius="1rem" textAlign="center"> LOS CAMPOS SON OBLIGATORIOS </Box>}
         </>
         
      );
