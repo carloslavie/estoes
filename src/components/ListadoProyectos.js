@@ -89,7 +89,7 @@ const ListadoProyectos = () => {
                                     key={proyecto.id}
                                     proyecto={proyecto}
                                 />
-                                <Linea></Linea>
+                                {/* <Linea></Linea> */}
                                 </>
                             ))
                         )}  

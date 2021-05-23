@@ -19,6 +19,7 @@ const Tad = styled.td`
 
 const CampoUno = styled.div`
     padding-left: 1rem;
+    margin-bottom: .5rem;
     @media (max-width: 768px){
         display: flex;
         flex-direction:column;
@@ -30,12 +31,15 @@ const CampoUno = styled.div`
 const ProjectM = styled.td`
     display:flex;
     align-items: center;
+    margin-top: .3rem;
+    margin-bottom: .5rem;
     @media (max-width: 768px){
         display:none
     }
 `;
 
 const TadStatus = styled.td`
+    margin-bottom: .5rem;
     @media (max-width: 768px){
         display:none
     }
@@ -45,6 +49,10 @@ const TadMenu = styled.td`
     @media (max-width: 768px){
         float: inline-end;
     }
+`;
+
+const TablaTr = styled.tr`
+    border-bottom: 1px solid #d9d9d9;    
 `;
 
 const Proyectos = ({proyecto}) => {
@@ -83,7 +91,7 @@ const Proyectos = ({proyecto}) => {
 
     return ( 
         <>        
-        <Tr>
+        <TablaTr>
             <Tad>
                 <CampoUno>
                     <Box>{name}</Box>
@@ -91,7 +99,7 @@ const Proyectos = ({proyecto}) => {
                 </CampoUno>
             </Tad>
             <ProjectM><Image src={avatar} width="30px" borderRadius="50%" mr="1rem"/>{productManager}</ProjectM>
-            <Tad><Flex alignItems="center"><Image src={asigImage} width="30px" borderRadius="50%" mr="1rem"/>{assigned}</Flex></Tad>
+            <Tad><Flex alignItems="center" mb=".5rem"><Image src={asigImage} width="30px" borderRadius="50%" mr="1rem"/>{assigned}</Flex></Tad>
             <TadStatus><Button>{status}</Button></TadStatus>
             <TadMenu>
                 <Menu>
@@ -113,7 +121,7 @@ const Proyectos = ({proyecto}) => {
                     </MenuList>
                 </Menu>
             </TadMenu>            
-        </Tr> 
+        </TablaTr> 
         </>
      );
 }
